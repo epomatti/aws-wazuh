@@ -16,7 +16,7 @@ resource "aws_instance" "main" {
   ami           = var.ami
   instance_type = var.instance_type
 
-  associate_public_ip_address = false
+  associate_public_ip_address = true
   subnet_id                   = var.subnet
   vpc_security_group_ids      = [aws_security_group.main.id]
   iam_instance_profile        = aws_iam_instance_profile.main.id

@@ -59,7 +59,7 @@ module "windows_server" {
   count         = var.enable_windows_server ? 1 : 0
   source        = "./modules/windows"
   vpc_id        = module.vpc.vpc_id
-  subnet        = module.vpc.private_subnet_id
+  subnet        = module.vpc.public_subnet_id
   ami           = var.windows_server_ami
   instance_type = var.windows_server_instance_type
 
