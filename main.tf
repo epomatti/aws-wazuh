@@ -39,10 +39,29 @@ module "wazuh" {
   instance_type = var.wazuh_instance_type
 }
 
+module "ssm" {
+  source           = "./modules/ssm"
+  wazuh_private_ip = module.wazuh.instance_private_ip
+}
+
 module "server" {
+  count         = var.enable_server ? 1 : 0
   source        = "./modules/server"
   vpc_id        = module.vpc.vpc_id
   subnet        = module.vpc.private_subnet_id
   ami           = var.server_ami
   instance_type = var.server_instance_type
+
+  depends_on = [module.wazuh, module.ssm]
+}
+
+module "windows_server" {
+  count         = var.enable_windows_server ? 1 : 0
+  source        = "./modules/windows"
+  vpc_id        = module.vpc.vpc_id
+  subnet        = module.vpc.private_subnet_id
+  ami           = var.windows_server_ami
+  instance_type = var.windows_server_instance_type
+
+  depends_on = [module.wazuh, module.ssm]
 }

@@ -1,10 +1,15 @@
 locals {
-  name = "server"
+  name = "windows-server"
 }
 
 resource "aws_iam_instance_profile" "main" {
   name = local.name
   role = aws_iam_role.main.id
+}
+
+resource "aws_key_pair" "deployer" {
+  key_name   = "windows-deployer-key"
+  public_key = file("${path.module}/../../keys/temp_key.pub")
 }
 
 resource "aws_instance" "main" {
@@ -15,7 +20,8 @@ resource "aws_instance" "main" {
   subnet_id                   = var.subnet
   vpc_security_group_ids      = [aws_security_group.main.id]
   iam_instance_profile        = aws_iam_instance_profile.main.id
-  user_data                   = file("${path.module}/userdata/ubuntu.sh")
+  user_data                   = file("${path.module}/userdata/windows.txt")
+  key_name                    = aws_key_pair.deployer.key_name
 
   metadata_options {
     http_endpoint = "enabled"
@@ -44,7 +50,7 @@ resource "aws_instance" "main" {
 ### IAM Role ###
 
 resource "aws_iam_role" "main" {
-  name = "wazuh-privateserver-role"
+  name = "wazuh-privateserver-windows-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
@@ -83,6 +89,15 @@ resource "aws_security_group" "main" {
 
 data "aws_vpc" "selected" {
   id = var.vpc_id
+}
+
+resource "aws_security_group_rule" "rdp" {
+  type              = "ingress"
+  from_port         = 3389
+  to_port           = 3389
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.main.id
 }
 
 resource "aws_security_group_rule" "icmp_egress" {

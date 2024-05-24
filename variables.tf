@@ -14,10 +14,26 @@ variable "wazuh_instance_type" {
 }
 
 ### EC2 ###
+variable "enable_server" {
+  type = bool
+}
+
 variable "server_ami" {
   type = string
 }
 
 variable "server_instance_type" {
+  type = string
+}
+
+variable "enable_windows_server" {
+  type = bool
+}
+
+variable "windows_server_ami" {
+  type = string
+}
+
+variable "windows_server_instance_type" {
   type = string
 }

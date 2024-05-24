@@ -98,12 +98,30 @@ resource "aws_security_group_rule" "icmp_ingress" {
   security_group_id = aws_security_group.main.id
 }
 
-resource "aws_security_group_rule" "all_ingress" {
+resource "aws_security_group_rule" "ingress_https" {
   type              = "ingress"
   from_port         = 0
   to_port           = 0
   protocol          = "-1"
   cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.main.id
+}
+
+resource "aws_security_group_rule" "ingress_vpc" {
+  type              = "ingress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = [data.aws_vpc.selected.cidr_block]
+  security_group_id = aws_security_group.main.id
+}
+
+resource "aws_security_group_rule" "egress_vpc" {
+  type              = "egress"
+  from_port         = 0
+  to_port           = 0
+  protocol          = "-1"
+  cidr_blocks       = [data.aws_vpc.selected.cidr_block]
   security_group_id = aws_security_group.main.id
 }
 
