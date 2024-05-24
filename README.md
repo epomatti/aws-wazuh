@@ -1,1 +1,2 @@
-# aws-wazuh
+# Wazuh running on AWS
+

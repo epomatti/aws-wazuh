@@ -44,7 +44,7 @@ resource "aws_instance" "main" {
 ### IAM Role ###
 
 resource "aws_iam_role" "main" {
-  name = "jumpserversecops"
+  name = "wazuh-privateserver-role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
