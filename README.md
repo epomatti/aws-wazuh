@@ -4,7 +4,7 @@ Wazuh XDR and SIEM running on AWS with Linux and Windows servers.
 
 ## Deploy Wazuh
 
-> [!TIP]
+> [!NOTE]
 > Before applying the infrastructure, check and update the AMIs and cloud-init script installation versions.
 
 Create the `.auto.tfvars` configuration:
