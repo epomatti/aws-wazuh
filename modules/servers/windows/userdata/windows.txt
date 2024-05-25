@@ -1,0 +1,12 @@
+<powershell>
+Set-TimeZone -Id "E. South America Standard Time"
+
+Install-WindowsFeature Telnet-Client
+
+$psv=7.4.2
+$uri="https://github.com/PowerShell/PowerShell/releases/download/v${psv}/PowerShell-${psv}-win-x64.msi"
+$path="ps7install.msi"
+$ProgressPreference = 'SilentlyContinue'
+Invoke-WebRequest -URI $uri -OutFile $path
+msiexec.exe /i $path /quiet /qn /norestart
+</powershell>

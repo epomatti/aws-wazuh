@@ -44,24 +44,25 @@ module "ssm" {
   wazuh_private_ip = module.wazuh.instance_private_ip
 }
 
-module "server" {
-  count         = var.enable_server ? 1 : 0
-  source        = "./modules/server"
+module "linux_server" {
+  count         = var.enable_linux_server ? 1 : 0
+  source        = "./modules/servers/linux"
   vpc_id        = module.vpc.vpc_id
   subnet        = module.vpc.private_subnet_id
-  ami           = var.server_ami
-  instance_type = var.server_instance_type
+  ami           = var.linux_server_ami
+  instance_type = var.linux_server_instance_type
 
   depends_on = [module.wazuh, module.ssm]
 }
 
 module "windows_server" {
   count         = var.enable_windows_server ? 1 : 0
-  source        = "./modules/windows"
+  source        = "./modules/servers/windows"
   vpc_id        = module.vpc.vpc_id
   subnet        = module.vpc.public_subnet_id
   ami           = var.windows_server_ami
   instance_type = var.windows_server_instance_type
+  public_key    = tls_private_key.generated_key.public_key_pem
 
   depends_on = [module.wazuh, module.ssm]
 }

@@ -1,3 +1,0 @@
-<powershell>
-Install-WindowsFeature Telnet-Client
-</powershell>

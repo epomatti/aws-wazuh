@@ -16,3 +16,12 @@ ssh-keygen -p -N "" -m pem -f temp_key
 
 .\wazuh-agent-4.7.4-1.msi WAZUH_MANAGER="192.168.0.38"
 NET START Wazuh
+
+
+
+https://wazuh.com/blog/hunting-for-windows-credential-access-attacks/
+
+
+https://wazuh.com/resources/blog/emulation-of-attack-techniques-and-detection-with-wazuh/sysmonconfig.xml
+https://documentation.wazuh.com/current/installation-guide/wazuh-agent/wazuh-agent-package-linux.html
+https://documentation.wazuh.com/current/installation-guide/wazuh-agent/wazuh-agent-package-windows.html

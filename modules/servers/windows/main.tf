@@ -9,7 +9,7 @@ resource "aws_iam_instance_profile" "main" {
 
 resource "aws_key_pair" "deployer" {
   key_name   = "windows-deployer-key"
-  public_key = file("${path.module}/../../keys/temp_key.pub")
+  public_key = var.public_key
 }
 
 resource "aws_instance" "main" {

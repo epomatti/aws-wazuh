@@ -14,15 +14,15 @@ variable "wazuh_instance_type" {
 }
 
 ### EC2 ###
-variable "enable_server" {
+variable "enable_linux_server" {
   type = bool
 }
 
-variable "server_ami" {
+variable "linux_server_ami" {
   type = string
 }
 
-variable "server_instance_type" {
+variable "linux_server_instance_type" {
   type = string
 }
 
