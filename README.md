@@ -1,5 +1,8 @@
 # Wazuh running on AWS
 
+upgrade powershell
+wazuh installer
+
 admin
 instance id
 

@@ -9,4 +9,6 @@ $path="ps7install.msi"
 $ProgressPreference = 'SilentlyContinue'
 Invoke-WebRequest -URI $uri -OutFile $path
 msiexec.exe /i $path /quiet /qn /norestart
+
+https://packages.wazuh.com/4.x/windows/wazuh-agent-4.7.4-1.msi
 </powershell>
