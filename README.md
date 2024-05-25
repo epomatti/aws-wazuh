@@ -33,7 +33,7 @@ The configuration is prepared to install the agent and register the servers to W
 Set the variables to create the servers:
 
 ```terraform
-enable_linux_server  = true
+enable_linux_server   = true
 enable_windows_server = true
 ```
 
