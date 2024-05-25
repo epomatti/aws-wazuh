@@ -42,6 +42,7 @@ module "wazuh" {
 module "ssm" {
   source           = "./modules/ssm"
   wazuh_private_ip = module.wazuh.instance_private_ip
+  private_key      = tls_private_key.generated_key.private_key_pem
 }
 
 module "linux_server" {
@@ -52,7 +53,7 @@ module "linux_server" {
   ami           = var.linux_server_ami
   instance_type = var.linux_server_instance_type
 
-  depends_on = [module.wazuh, module.ssm]
+  depends_on = [module.vpc, module.wazuh, module.ssm]
 }
 
 module "windows_server" {
@@ -62,7 +63,7 @@ module "windows_server" {
   subnet        = module.vpc.public_subnet_id
   ami           = var.windows_server_ami
   instance_type = var.windows_server_instance_type
-  public_key    = tls_private_key.generated_key.public_key_pem
+  public_key    = tls_private_key.generated_key.public_key_openssh
 
   depends_on = [module.wazuh, module.ssm]
 }
